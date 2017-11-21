@@ -1,8 +1,8 @@
-GROUP 18 FINAL PROJECT
+Group 18 Final Project
 
-Members:
-	Martin Nguyen
-	Eli Sandine
+###Members:
+	*Martin Nguyen
+	*Eli Sandine
 	
-Project Goal: (tentative)
-	Make a blog.
+###Project Goal: (tentative)
+	*Make a blog.
