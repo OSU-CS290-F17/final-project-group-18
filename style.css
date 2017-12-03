@@ -37,9 +37,12 @@ header a {
 
 .content {
   display: flex;
+  justify-content: center;;
+
 }
 
 .filter-container {
+  order: 2;
   min-width: 225px;
   max-width: 225px;
   margin: 10px 10px auto 10px;
@@ -98,11 +101,16 @@ header a {
   width: 100%;
 }
 
+#posts {
+  display: flex;
+  flex-direction: column;
+}
+
 .post {
   display: inline-block;
   vertical-align: top;
   height: 300px;
-  width: 300px;
+  width: 650px;
   margin: 10px;
   padding: 10px;
   border: 1px solid #dadada;
@@ -117,14 +125,17 @@ header a {
   width: 100%;
 }
 
+.post-info-container {
+  margin-top: 20px;
+}
+
 .post-image-container img {
   max-height: 240px;
   max-width: 300px;
 }
 
-.post-info-container {
-  width: 100%;
-  margin-top: 20px;
+.post-comment-container {
+
 }
 
 .post-price {
@@ -136,14 +147,22 @@ header a {
   border-radius: 3px;
   background: red;
 }
+
+#footer {
+  display: flex;
+  justify-content: center;
+  border-top: 5px solid black;
+}
+
 .contact-info-container {
+  
   border: 1px solid black;
   border-radius: 3px;
 }
 
 #post-something-button {
   position: fixed;
-  right: 30px;
+  left: 30px;
   bottom: 30px;
   height: 60px;
   width: 10%;
@@ -158,7 +177,7 @@ header a {
 
 #post-something-button:hover,
 #post-something-button:focus {
-  right: 32px;
+  left: 32px;
   bottom: 32px;
   height: 66px;
   width: 15%;
