@@ -20,11 +20,11 @@ header {
 }
 
 header a {
-  color: #fff;
+  color: red;
 }
 
 .site-title {
-  font-family: "Comic Sans ", sans-serif;
+  font-family: "Comic Sans MS", sans-serif;
   font-size: 80px;
   font-weight: 100;
   margin: 0 0 0 20px;
@@ -88,11 +88,11 @@ header a {
   border: 1px solid #ababab;
   border-radius: 5px;
   font-weight: lighter;
-  cursor: pointer;
+  cursor: hand;
 }
 
 .action-button:hover {
-  background-color: #f9d2b2;
+  background-color: #f777;
   border-color: #333;
   color: #333;
 }
@@ -138,18 +138,6 @@ header a {
 
 }
 
-/*
-.post-price {
-  display: inline-block;
-  font-size: 80%;
-  padding: 3px;
-  margin: 3px 5px;
-  border: 1px solid #ababab;
-  border-radius: 3px;
-  background: red;
-}
-*/
-
 #footer {
   display: flex;
   justify-content: center;
@@ -192,7 +180,7 @@ header a {
 }
 
 /*
- * Modal stuff
+ * Properties for the modal box
  */
 
 #modal-backdrop {
@@ -202,7 +190,7 @@ header a {
   left: 0;
   right: 0;
   z-index: 1000;
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: rgba(0, 0, 0, 0.65);
 }
 
 #post-something-modal {
@@ -226,7 +214,6 @@ header a {
   min-height: 300px;
   margin: 40px auto;
   background-color: #fff;
-  border-radius: 15px;
 }
 
 .modal-header {
@@ -296,5 +283,5 @@ header a {
 }
 
 #modal-cancel:hover {
-  background-color: #eee;
+  background-color: #f777;
 }
