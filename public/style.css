@@ -102,6 +102,10 @@ header a {
   width: 100%;
 }
 
+#delete-button {
+  width: 100%;
+}
+
 #posts {
   display: flex;
   flex-direction: column;
