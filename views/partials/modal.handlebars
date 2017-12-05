@@ -1,0 +1,36 @@
+<button type="button" id="post-something-button"><i class="fa fa-beer"> Add Post</i></button>
+
+<div id="modal-backdrop" class="hidden"></div>
+<div id="post-something-modal" class="hidden">
+  <div class="modal-dialog">
+
+    <div class="modal-header">
+      <h3>Add A Post To The Monster's Blog</h3>
+      <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="post-input-element">
+        <label for="post-comment-input">Comment</label>
+        <input type="text" id="post-comment-input">
+      </div>
+
+      <div class="post-input-element">
+        <label for="post-text-input">Post Title</label>
+        <input type="text" id="post-text-input"></input>
+      </div>
+
+      <div class="post-input-element">
+        <label for="post-photo-input">Photo URL</label>
+        <input type="text" id="post-photo-input">
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" id="modal-cancel" class="modal-hide-button action-button">Cancel</button>
+      <button type="button" id="modal-accept" class="action-button">Add</button>
+    </div>
+  </div>
+</div>
