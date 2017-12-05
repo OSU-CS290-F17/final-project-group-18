@@ -9,12 +9,11 @@ button.addEventListener('click',function() {
     // get value from text search
     var textValue = textInput.value;
     var postTitle = post.querySelector('.post-title').innerText;
-    
+
     // if value doesn't show up in node, blow it away
     if (!postTitle.toLowerCase().includes(textValue.toLowerCase()))  {
       post.remove();
     }
-
   });
 });
 

@@ -41,6 +41,7 @@ header a {
   justify-content: center;;
 
 }
+/*------------Properties for the Text Filter----------------*/
 
 .filter-container {
   order: 2;
@@ -101,6 +102,7 @@ header a {
 #filter-update-button {
   width: 100%;
 }
+/*------------Properties for the posts----------------*/
 
 #delete-button {
   width: 100%;
@@ -204,7 +206,7 @@ header a {
   min-width: 350px;
   min-height: 300px;
   margin: 40px auto;
-  background-color: #fff;
+  background-color: #bfffa8;
 }
 
 .modal-header {
@@ -287,11 +289,10 @@ header a {
 }
 
 .contact-info-container {
-
   border: 1px solid black;
   border-radius: 3px;
   padding: 5px;
-  background-color: #bfffa8; 
+  background-color: #bfffa8;
 }
 
 
