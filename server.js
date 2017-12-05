@@ -11,10 +11,12 @@ var pageNotFound = fs.readFileSync('./public/404.html', 'utf8');
 
 // server function with callback
 var server = http.createServer( function (req, res) {
+  /*
   console.log("== Request made");
   console.log("  - method:", req.method);
   console.log("  - path:", req.url);
   console.log("  - headers:", req.headers);
+  */
 
   if (req.url === '/' || req.url === '/index.html') {
     res.writeHead(200, {
@@ -55,4 +57,6 @@ var server = http.createServer( function (req, res) {
 /*---------------------Specifying Port-----------------------------*/
 var port = process.env.PORT || 3000; // If port isn't specified then use 3000 as default.
 
-server.listen(port); 
+server.listen(port, function () {
+  console.log("== Server listening on port:", port);
+});
