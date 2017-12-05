@@ -1,3 +1,4 @@
+/*------------Properties for the page----------------*/
 body {
   font-family: 'Georgia' sans-serif;
   margin: 0;
@@ -48,7 +49,7 @@ header a {
   margin: 10px 10px auto 10px;
   padding: 20px;
   border-radius: 3px;
-  background-color: #efefef;
+  background-color: #bfffa8;
 }
 
 .filter-container h2 {
@@ -138,18 +139,6 @@ header a {
 
 }
 
-#footer {
-  display: flex;
-  justify-content: center;
-  border-top: 5px solid black;
-}
-
-.contact-info-container {
-
-  border: 1px solid black;
-  border-radius: 3px;
-}
-
 #post-something-button {
   position: fixed;
   left: 30px;
@@ -179,9 +168,7 @@ header a {
   outline: none;
 }
 
-/*
- * Properties for the modal box
- */
+/*------------Properties for the modal box----------------*/
 
 #modal-backdrop {
   position: fixed;
@@ -285,6 +272,24 @@ header a {
 #modal-cancel:hover {
   background-color: #f777;
 }
+
+/*------------Footer container------------*/
+
+#footer {
+  display: flex;
+  justify-content: center;
+  border-top: 5px solid black;
+  padding: 5px;
+}
+
+.contact-info-container {
+
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 5px;
+  background-color: #bfffa8; 
+}
+
 
 /*------------404 container------------*/
 .error-container {
