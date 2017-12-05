@@ -1,0 +1,20 @@
+{
+  "name": "final-project-group-18",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OSU-CS290-F17/final-project-group-18.git"
+  },
+  "author": "Martin & Eli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OSU-CS290-F17/final-project-group-18/issues"
+  },
+  "homepage": "https://github.com/OSU-CS290-F17/final-project-group-18#readme"
+}
