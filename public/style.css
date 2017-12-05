@@ -103,10 +103,13 @@ header a {
   width: 100%;
 }
 /*------------Properties for the posts----------------*/
+<<<<<<< HEAD
 
 #delete-button {
   width: 100%;
 }
+=======
+>>>>>>> elis-branch
 
 #posts {
   display: flex;
