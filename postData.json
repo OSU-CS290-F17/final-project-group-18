@@ -1,0 +1,24 @@
+{
+  "posts": [
+    {
+      "comment" : "The Sriracha melt down is the best burger in Corvallis, I like it spicy!",
+      "photoURL" : "http://www.cheesystuffedburgers.com/wp-content/uploads/2016/02/home-page-photo2-2.jpg",
+      "description" : "Cheesy Stuffed Burgers"
+    },
+    {
+      "comment" : "The spicy won-ton soup is ballin' out of control.",
+      "photoURL" : "https://s3-media3.fl.yelpcdn.com/bphoto/pDmBDZc8X1STATWLb5aK9g/ls.jpg",
+      "description" : "Tian Fu Noodles"
+    },
+    {
+      "comment" : "DO NOT EAT HERE!! The kitchen is a lawsuit in the making, gross.",
+      "photoURL" : "https://s3.amazonaws.com/beermapping/locations/McMnMroeE.jpg",
+      "description" : "McMennigicocal on Monroe"
+    },
+    {
+      "comment" : "Best Tortas and Bambozas in Oregon, hands down!",
+      "photoURL" : "https://scontent-sea1-1.xx.fbcdn.net/v/t1.0-9/18881907_1261440587307342_2108981653898144506_n.jpg?oh=bcebed05a571ee054435d5cc66a98200&oe=5ACA44F4",
+      "description" : "Chilango Street Food"
+    }
+  ]
+}
