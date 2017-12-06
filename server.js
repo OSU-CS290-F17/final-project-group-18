@@ -82,16 +82,40 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 app.get('/', function (req, res) {
-  res.status(200).render('postsPage', )
+  var postData = mongoConnection.collection('postData');
+
+  postData.find({}).toArray(function (err, results) {
+    if (err) {
+      res.status(500).send("Error fetching posts from DataBase.");
+    } else {
+      console.log("== query results:", results);
+      res.status(200).render('postsPage', {
+        posts: results
+      });
+    }
+  });
+
+// res.status(200).render('postsPage', )
 });
 
 app.get('/:n', function (req, res) {
   var n = req.params.n;
-  if (n <= array.length()) {
-    res.status(200).render('singlePost', );
-  } else {
-    res.status(404).render('404');
-  }
+  var postData = mongoConnection.collection('postData');
+
+  postData.find({}).toArray(function (err, results) {
+    if (err) {
+      res.status(500).send("Error fetching posts from DataBase.");
+    } else {
+      if (n <= results.length()) {
+        console.log("== query results:", results);
+        res.status(200).render('singlePosts', {
+          post: results.[n]
+        });
+      } else {
+        res.status(404).render('404');
+      }
+    }
+  });
 });
 
 app.get('*', function (req, res) {
@@ -100,6 +124,28 @@ app.get('*', function (req, res) {
 
 app.post('/addPost', function (req, res) {
 
+  if (req.body.description && req.body.photoURL && req.body.comment) {
+    var postData = mongoConnection.collection('postData');
+    var postObject = {
+      comment: req.body.comment,
+      photoURL: req.body.photoURL,
+      description: req.body.description
+    };
+
+    postData.updateOne(
+      {},
+      { $push: { posts: postObj }},
+      function (err, result) {
+        if (err) {
+          res.status(500).send("Error fetching posts from DataBase.");
+        } else {
+          res.status(200).send("Successfully Added Post.");
+        }
+      }
+    )
+  } else {
+    res.status(400).send("Request body not filled out.");
+  }
 });
 
 app.post('*', function (req, res) {
@@ -107,6 +153,24 @@ app.post('*', function (req, res) {
 });
 
 app.delete('/delete/:n', function(req, res) {
+  var postData = mongoConnection.collection('postData');
+  var n = req.params.n;
+
+  postData.find({}).toArray(function (err, results) {
+    if (err) {
+      res.status(500).send("Error fetching posts from DataBase.");
+    } else {
+      if (n <= results.length()) {
+        console.log("== query results:", results);
+        postData.deleteOne(
+          {},
+          
+        );
+      } else {
+        res.status(400).send("Post does not exist. It cannot be deleted.");
+      }
+    }
+  });
 
 });
 
