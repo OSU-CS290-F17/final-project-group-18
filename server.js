@@ -54,75 +54,125 @@
 //     res.end('\n');
 //   }
 // });
-
-var path = require('path');
-var express = require('express');
-var exphbs = require('express-handlebars');
-var bodyParser = require('body-parser');
-var MongoClient = require('mongodb').MongoClient;
-
-var server = express();
-
-var mongoHost = process.env.MONGO_HOST;
-var mongoPort = process.env.MONGO_PORT || 27017;
-var mongoUser = process.env.MONGO_USER;
-var mongoPassword = process.env.MONGO_PASSWORD;
-var mongoDBName = process.env.MONGO_DB;
-
-var mongoURL = 'mongodb://' + mongoUser + ':' + mongoPassword +
-  '@' + mongoHost + ':' + mongoPort + '/' + mongoDBName;
-
-var mongoConnection = null;
-
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
-app.set('view engine', 'handlebars');
-
-app.use(bodyParser.json());
-
-app.use(express.static('public'));
-
-app.get('/', function (req, res) {
-
-});
-
-app.get('/:n', function (req, res) {
-
-});
-
-app.get('*', function (req, res) {
-
-});
-
-app.post('/addPost', function (req, res) {
-
-});
-
-app.post('*', function (req, res) {
-
-});
-
-app.delete('/delete/:n', function(req, res) {
-
-});
-
-app.delete('*', function(req, res) {
-
-});
-
-
-/*---------------------Specifying Port-----------------------------*/
-var port = process.env.PORT || 3000; // If port isn't specified then use 3000 as default.
-
-MongoClient.connect(mongoURL, function (err, connection) {
-  if (err) {
-    throw err;
-  }
-  mongoConnection = connection;
-  app.listen(port, function () {
-    console.log("== Server listening on port:", port);
-  });
-});
+//
+// var path = require('path');
+// var express = require('express');
+// var exphbs = require('express-handlebars');
+// var bodyParser = require('body-parser');
+// var MongoClient = require('mongodb').MongoClient;
+//
+// var server = express();
+//
+// var mongoHost = process.env.MONGO_HOST;
+// var mongoPort = process.env.MONGO_PORT || 27017;
+// var mongoUser = process.env.MONGO_USER;
+// var mongoPassword = process.env.MONGO_PASSWORD;
+// var mongoDBName = process.env.MONGO_DB;
+//
+// var mongoURL = 'mongodb://' + mongoUser + ':' + mongoPassword +
+//   '@' + mongoHost + ':' + mongoPort + '/' + mongoDBName;
+//
+// var mongoConnection = null;
+//
+// app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+// app.set('view engine', 'handlebars');
+//
+// app.use(bodyParser.json());
+//
+// app.use(express.static('public'));
+//
+// app.get('/', function (req, res) {
+//
+// });
+//
+// app.get('/:n', function (req, res) {
+//
+// });
+//
+// app.get('*', function (req, res) {
+//
+// });
+//
+// app.post('/addPost', function (req, res) {
+//
+// });
+//
+// app.post('*', function (req, res) {
+//
+// });
+//
+// app.delete('/delete/:n', function(req, res) {
+//
+// });
+//
+// app.delete('*', function(req, res) {
+//
+// });
+//
+//
+// /*---------------------Specifying Port-----------------------------*/
+// var port = process.env.PORT || 3000; // If port isn't specified then use 3000 as default.
+//
+// MongoClient.connect(mongoURL, function (err, connection) {
+//   if (err) {
+//     throw err;
+//   }
+//   mongoConnection = connection;
+//   app.listen(port, function () {
+//     console.log("== Server listening on port:", port);
+//   });
+// });
 
 // server.listen(port, function () {
 //   console.log("== Server listening on port:", port);
 // });
+var path = require('path');
+var express = require('express');
+
+// added this to require express-handlebars and postData
+var exphbs = require('express-handlebars');
+var postData = require('./postData');
+var app = express();
+
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.set('view engine', 'handlebars');
+
+var port = process.env.PORT || 3000;
+
+var postDataObjects = {'posts' : postData};
+
+app.get('/', function (req, res) {
+  res.status(200).render('postsPage', postDataObjects);
+});
+
+app.get('/posts', function (req, res) {
+  res.status(200).render('postsPage', postDataObjects);
+});
+
+app.get('/posts/:n', function (req, res, next) {
+  var n = req.params.n;
+  if (n == parseInt(n, 10) && n >= 0 && n <= 7) {
+    var singlePostObj = postDataObjects.posts[n];
+    res.status(200).render('singlePost', singlePostObj);
+  }
+  else {
+    next();
+  }
+});
+
+
+app.use(express.static('public'));
+
+
+app.get('*', function (req, res) {
+  res.status(404).render('404');
+});
+
+
+app.get('*', function (req, res) {
+  res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
+});
+
+app.listen(port, function () {
+  console.log("== Server is listening on port", port);
+});

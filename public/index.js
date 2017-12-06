@@ -48,9 +48,10 @@ function hideModal() {
 }
 
 function clearModalInput() {
-  postTextInput.value = "";
-  postPhotoInput.value = "";
-  postCommentInput.value = "";
+  var modalInputElements = document.querySelectorAll('#post-something-modal input')
+  for (var i = 0; i < modalInputElements.length; i++) {
+    modalInputElements[i].value = "";
+  }
 }
 
 // event listener to button, access to modal/backdrop, remove hidden class
@@ -69,20 +70,34 @@ cancelPostButtonInModal.addEventListener('click', function() {
   clearModalInput();
 });
 
+function insertNewPost(description, photoURL, comment) {
+
+  var postTemplateArgs = {
+    description: description,
+    photoURL: photoURL,
+    comment: comment,
+  };
+  var postHTML = Handlebars.templates.post(postTemplateArgs);
+
+    var postsSection = document.getElementById('posts');
+    postsSection.insertAdjacentHTML('beforeend', postHTML);
+}
+
 // event listener to post button and cloning first node then formatting to input
 createPostButton.addEventListener('click', function() {
 
   // doing a deep clone on the node to get desired structure, true gets deep copy
-  var nodeClone = node.cloneNode(true);
-
-  // assigning values and to the newly created node
-  nodeClone.querySelector('.post-title').innerText = postTextInput.value;
-  nodeClone.querySelector('img').src = postPhotoInput.value;
-  nodeClone.querySelector('img').alt = postTextInput.value;
-  nodeClone.querySelector('p').innerText = postCommentInput.value;
-
-  // appendChild to add node to DOM and then hide/clear modal
-  posts.appendChild(nodeClone);
+  // var nodeClone = node.cloneNode(true);
+  //
+  // // assigning values and to the newly created node
+  // nodeClone.querySelector('.post-title').innerText = postTextInput.value;
+  // nodeClone.querySelector('img').src = postPhotoInput.value;
+  // nodeClone.querySelector('img').alt = postTextInput.value;
+  // nodeClone.querySelector('p').innerText = postCommentInput.value;
+  //
+  // // appendChild to add node to DOM and then hide/clear modal
+  // posts.appendChild(nodeClone);
+  insertNewPost();
   hideModal();
   clearModalInput();
 });
