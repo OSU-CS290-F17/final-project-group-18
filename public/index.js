@@ -26,13 +26,9 @@ var modalBackDrop = document.getElementById('modal-backdrop');
 var closeModalButton = document.getElementById('modal-close');
 var cancelPostButtonInModal = document.getElementById('modal-cancel');
 
-// getting the values input into modal
-var postTextInput = document.getElementById('post-text-input');
-var postPhotoInput = document.getElementById('post-photo-input');
-var postCommentInput = document.getElementById('post-comment-input');
-
 // getting elements needed to clone the node
 var createPostButton = document.getElementById('modal-accept');
+var deletePostButton = document.getElementById('delete-button');
 var node = document.querySelector('.post');
 var posts = document.getElementById('posts');
 
@@ -70,34 +66,73 @@ cancelPostButtonInModal.addEventListener('click', function() {
   clearModalInput();
 });
 
-function insertNewPost(description, photoURL, comment) {
+function createPost(photoURL, comment, description) {
 
   var postTemplateArgs = {
     description: description,
     photoURL: photoURL,
     comment: comment,
   };
+
   var postHTML = Handlebars.templates.post(postTemplateArgs);
 
-    var postsSection = document.getElementById('posts');
-    postsSection.insertAdjacentHTML('beforeend', postHTML);
+  return postHTML;
 }
+// getting the values input into modal
+var description = document.getElementById('post-text-input').value.trim();
+var photoURL = document.getElementById('post-photo-input').value.trim();
+var comment = document.getElementById('post-comment-input').value.trim();
 
 // event listener to post button and cloning first node then formatting to input
 createPostButton.addEventListener('click', function() {
 
-  // doing a deep clone on the node to get desired structure, true gets deep copy
-  // var nodeClone = node.cloneNode(true);
-  //
-  // // assigning values and to the newly created node
-  // nodeClone.querySelector('.post-title').innerText = postTextInput.value;
-  // nodeClone.querySelector('img').src = postPhotoInput.value;
-  // nodeClone.querySelector('img').alt = postTextInput.value;
-  // nodeClone.querySelector('p').innerText = postCommentInput.value;
-  //
-  // // appendChild to add node to DOM and then hide/clear modal
-  // posts.appendChild(nodeClone);
-  insertNewPost();
-  hideModal();
+  var postObject = {
+    description: description,
+    photoURL: photoURL,
+    comment: comment,
+  };
+
+  if (!description || !photoURL || !comment) {
+    alert("You must fill in all of the fields!");
+  } else {
+
+    var postRequest = new XMLHttpRequest();
+    var postURL = "/addPost";
+
+    postRequest.open('POST', postURL);
+
+    var requestBody = JSON.stringify(postObject);
+    postRequest.setRequestHeader('Content-Type', 'application/json');
+
+    postRequest.addEventListener('load', function (event) {
+      if (event.target.status !== 200) {
+        alert("Error storing post in database:\n\n\n" + event.target.response);
+      } else {
+        var newPost = createPost(photoURL, comment, description);
+        var postContainer = document.querySelector('#posts');
+
+        postContainer.insertAdjacentHTML('beforeend', newPost);
+      }
+    });
+
+    postRequest.send(requestBody);
+
+    hideModal();
+
+  }
   clearModalInput();
+});
+
+deletePostButton.addEventListener('click', function () {
+
+  var deleteRequest = new XMLHttpRequest();
+  var deleteURL = "/delete" + window.location.pathname;
+
+  deleteRequest.open('DELETE', deleteURL);
+
+  var requestBody = JSON.stringify('bla bla bla string');
+  deleteRequest.setRequestHeader('Content-Type', 'application/json');
+
+  deleteRequest.send(requestBody);
+
 });
