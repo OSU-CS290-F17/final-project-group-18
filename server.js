@@ -142,6 +142,7 @@ var port = process.env.PORT || 3000;
 var postDataObjects = {'posts' : postData};
 
 app.get('/', function (req, res) {
+<<<<<<< HEAD
   res.status(200).render('postsPage', postDataObjects);
 });
 
@@ -163,14 +164,110 @@ app.get('/posts/:n', function (req, res, next) {
 
 app.use(express.static('public'));
 
+=======
+  var postData = mongoConnection.collection('postData');
+
+  postData.find({}).toArray(function (err, results) {
+    if (err) {
+      res.status(500).send("Error fetching posts from DataBase.");
+    } else {
+      console.log("== query results:", results);
+      res.status(200).render('postsPage', {
+        posts: results
+      });
+    }
+  });
+
+// res.status(200).render('postsPage', )
+});
+
+app.get('/:n', function (req, res) {
+  var n = req.params.n;
+  var postData = mongoConnection.collection('postData');
+
+  postData.find({}).toArray(function (err, results) {
+    if (err) {
+      res.status(500).send("Error fetching posts from DataBase.");
+    } else {
+      if (n <= results.length()) {
+        console.log("== query results:", results);
+        res.status(200).render('singlePosts', {
+          post: results.[n]
+        });
+      } else {
+        res.status(404).render('404');
+      }
+    }
+  });
+});
 
 app.get('*', function (req, res) {
   res.status(404).render('404');
 });
 
+app.post('/addPost', function (req, res) {
+
+  if (req.body.description && req.body.photoURL && req.body.comment) {
+    var postData = mongoConnection.collection('postData');
+    var postObject = {
+      comment: req.body.comment,
+      photoURL: req.body.photoURL,
+      description: req.body.description
+    };
+
+    postData.updateOne(
+      {},
+      { $push: { posts: postObj }},
+      function (err, result) {
+        if (err) {
+          res.status(500).send("Error fetching posts from DataBase.");
+        } else {
+          res.status(200).send("Successfully Added Post.");
+        }
+      }
+    )
+  } else {
+    res.status(400).send("Request body not filled out.");
+  }
+});
+
+app.post('*', function (req, res) {
+  res.status(404).render('404');
+});
+
+app.delete('/delete/:n', function(req, res) {
+  var postData = mongoConnection.collection('postData');
+  var n = req.params.n;
+
+  postData.find({}).toArray(function (err, results) {
+    if (err) {
+      res.status(500).send("Error fetching posts from DataBase.");
+    } else {
+      if (n <= results.length()) {
+        console.log("== query results:", results);
+        postData.deleteOne(
+          {},
+          
+        );
+      } else {
+        res.status(400).send("Post does not exist. It cannot be deleted.");
+      }
+    }
+  });
+>>>>>>> 830241b4e52d07c4b1873139176f896306e389d1
+
+app.get('*', function (req, res) {
+  res.status(404).render('404');
+});
+
+<<<<<<< HEAD
 
 app.get('*', function (req, res) {
   res.status(404).sendFile(path.join(__dirname, 'public', '404.html'));
+=======
+app.delete('*', function(req, res) {
+  res.status(404).render('404');
+>>>>>>> 830241b4e52d07c4b1873139176f896306e389d1
 });
 
 app.listen(port, function () {
