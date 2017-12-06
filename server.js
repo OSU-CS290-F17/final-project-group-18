@@ -82,15 +82,20 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 app.get('/', function (req, res) {
-
+  res.status(200).render('postsPage', )
 });
 
 app.get('/:n', function (req, res) {
-
+  var n = req.params.n;
+  if (n <= array.length()) {
+    res.status(200).render('singlePost', );
+  } else {
+    res.status(404).render('404');
+  }
 });
 
 app.get('*', function (req, res) {
-
+  res.status(404).render('404');
 });
 
 app.post('/addPost', function (req, res) {
@@ -98,7 +103,7 @@ app.post('/addPost', function (req, res) {
 });
 
 app.post('*', function (req, res) {
-
+  res.status(404).render('404');
 });
 
 app.delete('/delete/:n', function(req, res) {
@@ -106,7 +111,7 @@ app.delete('/delete/:n', function(req, res) {
 });
 
 app.delete('*', function(req, res) {
-
+  res.status(404).render('404');
 });
 
 
