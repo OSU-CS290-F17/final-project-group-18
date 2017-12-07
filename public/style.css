@@ -137,9 +137,13 @@ header a {
   margin-top: 20px;
 }
 
+a.post-title {
+  font-size: 24px;
+}
+
 .post-image-container img {
-  max-height: 240px;
-  max-width: 300px;
+  max-height: 200px;
+  max-width: 250px;
 }
 
 #post-something-button {
