@@ -7,11 +7,11 @@ var MongoClient = require('mongodb').MongoClient;
 
 var app = express();
 
-var mongoHost = process.env.MONGO_HOST || 'classmongo.engr.oregonstate.edu';
+var mongoHost = process.env.MONGO_HOST;
 var mongoPort = process.env.MONGO_PORT || 27017;
-var mongoUser = process.env.MONGO_USER || 'cs290_sandinee';
-var mongoPassword = process.env.MONGO_PASSWORD || 'cs290_sandinee';
-var mongoDBName = process.env.MONGO_DB || 'cs290_sandinee';
+var mongoUser = process.env.MONGO_USER;
+var mongoPassword = process.env.MONGO_PASSWORD;
+var mongoDBName = process.env.MONGO_DB;
 
 var mongoURL = 'mongodb://' + mongoUser + ':' + mongoPassword +
   '@' + mongoHost + ':' + mongoPort + '/' + mongoDBName;
@@ -27,13 +27,12 @@ app.use(express.static('public', { index : false }));
 
 app.get('/', function (req, res) {
   var postData = mongoConnection.collection('postData');
-  console.log("hello from 86");
   postData.find({}).toArray(function (err, results) {
     if (err) {
       res.status(500).send("Error fetching posts from DataBase.");
       console.log("Error branch.....");
     } else {
-      console.log("== query results length:", results.length);
+      console.log("== query results:\n", results);
       res.status(200).render('postsPage', {
         posts: results
       });
@@ -50,7 +49,7 @@ app.get('/:n', function (req, res) {
       res.status(500).send("Error fetching posts from DataBase.");
     } else {
       if (n <= results.length) {
-        console.log("== query results:", results);
+        console.log("== query results:\n", results);
         res.status(200).render('singlePost', {
           post: results[n]
         });
@@ -104,7 +103,7 @@ app.delete('/delete/:n', function(req, res) {
       res.status(500).send("Error fetching posts from DataBase.");
     } else {
       if (n <= results.length) {
-        console.log("== query results:", results);
+        console.log("== query results:\n", results);
         postData.remove(
           { _id: results[n]._id },
           function (err, result) {
