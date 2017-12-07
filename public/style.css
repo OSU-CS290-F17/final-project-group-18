@@ -50,7 +50,7 @@ header a {
   margin: 10px 10px auto 10px;
   padding: 20px;
   border-radius: 3px;
-  background-color: #bfffa8;
+  background-color: #54F254;
 }
 
 .filter-container h2 {
@@ -94,9 +94,10 @@ header a {
 }
 
 .action-button:hover {
-  background-color: #f777;
+  background-color: red;
   border-color: #333;
   color: #333;
+  font-weight: bold;
 }
 
 #filter-update-button {
@@ -141,10 +142,6 @@ header a {
   max-width: 300px;
 }
 
-.post-comment-container {
-
-}
-
 #post-something-button {
   position: fixed;
   left: 30px;
@@ -152,10 +149,9 @@ header a {
   height: 60px;
   width: 10%;
   border: 1px solid black;
-  /*border-radius: 30px;*/
   font-size: 20px;
   background-color: red;
-  color: #fff;
+  color: #54F254;
   cursor: pointer;
   box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.25);
 }
@@ -166,7 +162,6 @@ header a {
   bottom: 32px;
   height: 66px;
   width: 15%;
-  /*border-radius: 33px;*/
   font-size: 25px;
 }
 
@@ -206,7 +201,7 @@ header a {
   min-width: 350px;
   min-height: 300px;
   margin: 40px auto;
-  background-color: #bfffa8;
+  background-color: #54F254;
 }
 
 .modal-header {
@@ -270,13 +265,17 @@ header a {
   margin-right: 20px;
 }
 
+#modal-accept:hover {
+  background-color: #FEB8B8;
+}
+
 #modal-cancel {
   color: #333;
   background-color: #fff;
 }
 
 #modal-cancel:hover {
-  background-color: #f777;
+  background-color: red;
 }
 
 /*------------Footer container------------*/
@@ -292,7 +291,7 @@ header a {
   border: 1px solid black;
   border-radius: 3px;
   padding: 5px;
-  background-color: #bfffa8;
+  background-color: #54F254;
 }
 
 
