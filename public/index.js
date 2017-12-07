@@ -1,7 +1,6 @@
 // getting the filter update button here
 var button = document.getElementById('filter-update-button');
 var textInput = document.getElementById('filter-text');
-
 // Adding an event listener to filter update button
 button.addEventListener('click',function() {
   // filter through each post
@@ -9,7 +8,6 @@ button.addEventListener('click',function() {
     // get value from text search
     var textValue = textInput.value;
     var postTitle = post.querySelector('.post-title').innerText;
-
     // if value doesn't show up in node, blow it away
     if (!postTitle.toLowerCase().includes(textValue.toLowerCase()))  {
       post.remove();
@@ -33,6 +31,13 @@ var node = document.querySelector('.post');
 var posts = document.getElementById('posts');
 
 /*--------------------functions to show,hide & clear modal--------------------------*/
+function clearModalInput() {
+  var modalInputElements = document.querySelectorAll('#post-something-modal input')
+  for (var i = 0; i < modalInputElements.length; i++) {
+    modalInputElements[i].value = "";
+  }
+}
+
 function showModal() {
   postSomethingModal.classList.remove('hidden');
   modalBackDrop.classList.remove('hidden');
@@ -41,13 +46,7 @@ function showModal() {
 function hideModal() {
   postSomethingModal.classList.add('hidden');
   modalBackDrop.classList.add('hidden');
-}
-
-function clearModalInput() {
-  var modalInputElements = document.querySelectorAll('#post-something-modal input')
-  for (var i = 0; i < modalInputElements.length; i++) {
-    modalInputElements[i].value = "";
-  }
+  clearModalInput();
 }
 
 // event listener to button, access to modal/backdrop, remove hidden class
@@ -58,14 +57,12 @@ postSomethingButton.addEventListener('click', function () {
 // event listener to modal close button and cancel button, adds hidden class
 closeModalButton.addEventListener('click', function() {
   hideModal();
-  clearModalInput();
 });
 
 cancelPostButtonInModal.addEventListener('click', function() {
   hideModal();
-  clearModalInput();
 });
-
+// create a new post
 function createPost(photoURL, comment, description) {
 
   var postTemplateArgs = {
@@ -83,7 +80,7 @@ var description = document.getElementById('post-text-input').value.trim();
 var photoURL = document.getElementById('post-photo-input').value.trim();
 var comment = document.getElementById('post-comment-input').value.trim();
 
-// event listener to post button and cloning first node then formatting to input
+// event listener to post button -- create postObject, check if fiels are blank
 createPostButton.addEventListener('click', function() {
 
   var postObject = {
@@ -95,12 +92,11 @@ createPostButton.addEventListener('click', function() {
   if (!description || !photoURL || !comment) {
     alert("You must fill in all of the fields!");
   } else {
-
+    // make XMLHttp request
     var postRequest = new XMLHttpRequest();
     var postURL = "/addPost";
-
     postRequest.open('POST', postURL);
-
+    // set request body, postRequest and setRequestHeader
     var requestBody = JSON.stringify(postObject);
     postRequest.setRequestHeader('Content-Type', 'application/json');
 
@@ -110,29 +106,27 @@ createPostButton.addEventListener('click', function() {
       } else {
         var newPost = createPost(photoURL, comment, description);
         var postContainer = document.querySelector('#posts');
-
         postContainer.insertAdjacentHTML('beforeend', newPost);
+        // insert at the bottom of page
       }
     });
 
     postRequest.send(requestBody);
 
     hideModal();
-
   }
-  clearModalInput();
+
 });
 
+// delete the post from mongoDb using similar method from above
 deletePostButton.addEventListener('click', function () {
 
   var deleteRequest = new XMLHttpRequest();
   var deleteURL = "/delete" + window.location.pathname;
-
   deleteRequest.open('DELETE', deleteURL);
 
   var requestBody = JSON.stringify('bla bla bla string');
   deleteRequest.setRequestHeader('Content-Type', 'application/json');
-
   deleteRequest.send(requestBody);
 
 });
