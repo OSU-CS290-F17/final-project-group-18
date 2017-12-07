@@ -61,7 +61,7 @@ var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 
-var server = express();
+var app = express();
 
 var mongoHost = process.env.MONGO_HOST;
 var mongoPort = process.env.MONGO_PORT || 27017;
@@ -79,16 +79,17 @@ app.set('view engine', 'handlebars');
 
 app.use(bodyParser.json());
 
-app.use(express.static('public'));
+app.use(express.static('public', { index : false }));
 
 app.get('/', function (req, res) {
   var postData = mongoConnection.collection('postData');
-
+  console.log("hello from 86");
   postData.find({}).toArray(function (err, results) {
     if (err) {
       res.status(500).send("Error fetching posts from DataBase.");
+      console.log("Error branch.....");
     } else {
-      console.log("== query results:", results);
+      console.log("== query results length:", results.length);
       res.status(200).render('postsPage', {
         posts: results
       });
@@ -106,10 +107,10 @@ app.get('/:n', function (req, res) {
     if (err) {
       res.status(500).send("Error fetching posts from DataBase.");
     } else {
-      if (n <= results.length()) {
+      if (n <= results.length) {
         console.log("== query results:", results);
-        res.status(200).render('singlePosts', {
-          post: results.[n]
+        res.status(200).render('singlePost', {
+          post: results[n]
         });
       } else {
         res.status(404).render('404');
@@ -117,6 +118,7 @@ app.get('/:n', function (req, res) {
     }
   });
 });
+
 
 app.get('*', function (req, res) {
   res.status(404).render('404');
@@ -131,10 +133,10 @@ app.post('/addPost', function (req, res) {
       photoURL: req.body.photoURL,
       description: req.body.description
     };
+    console.log(postObject);
 
-    postData.updateOne(
-      {},
-      { $push: { posts: postObj }},
+    postData.insert(
+      postObject,
       function (err, result) {
         if (err) {
           res.status(500).send("Error fetching posts from DataBase.");
@@ -160,10 +162,17 @@ app.delete('/delete/:n', function(req, res) {
     if (err) {
       res.status(500).send("Error fetching posts from DataBase.");
     } else {
-      if (n <= results.length()) {
+      if (n <= results.length) {
         console.log("== query results:", results);
-        postData.deleteOne(
-          {},
+        postData.remove(
+          { _id: results[n]._id },
+          function (err, result) {
+            if (err) {
+              res.status(500).send("Error fetching posts from DataBase.");
+            } else {
+              res.status(200).send("Successfully Added Post.");
+            }
+          }
 
         );
       } else {
